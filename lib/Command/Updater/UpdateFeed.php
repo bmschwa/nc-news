@@ -66,7 +66,11 @@ class UpdateFeed extends Command
         }
 
         if ($updated_feed->getUpdateErrorCount() !== 0) {
-            $output->writeln($updated_feed->getLastUpdateError());
+			if (!empty($updated_feed->getLastUpdateError())){
+				$output->writeln($updated_feed->getLastUpdateError());
+			}else{
+				$output->writeln('Could not update feed with id ' . $feedId . ' and user ' . $userId . ');
+			}
             return 255;
         }
 
